@@ -1,0 +1,33 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # Permite rodar manualmente pelo site do GitHub
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' # Mude para a versão que você usa
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+          pip install -r requirements.txt # Se você tiver um arquivo de requisitos
+
+      - name: Gerar o .exe
+        run: pyinstaller --onefile seu_script.py # Troque pelo nome do seu arquivo
+
+      - name: Salvar o .exe como Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MeuPrograma-EXE
+          path: dist/
