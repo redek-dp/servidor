@@ -24,7 +24,7 @@ jobs:
           pip install -r requirements.txt # Se você tiver um arquivo de requisitos
 
       - name: Gerar o .exe
-        run: pyinstaller --onefile seu_script.py # Troque pelo nome do seu arquivo
+        run: pyinstaller --onefile servidor.py # Troque pelo nome do seu arquivo
 
       - name: Salvar o .exe como Artifact
         uses: actions/upload-artifact@v4
